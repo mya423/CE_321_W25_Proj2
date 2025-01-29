@@ -53,8 +53,35 @@ def ComputeReactions(nodes):
     
     # Continue from here
     # Sum of moments about the pin
-
-    # sum of forces in y direction
+    [pin_x, pin_y] = pin_node.location
+    [roller_x, roller_y] = roller_node.location
+    roller_reaction = 0
+    for node in nodes:
+        [node_x,node_y] = node.location
+        # contributions in the y direction
+        roller_reaction += node.yforce_external * (node_x - pin_x)
+        # contributions in the x direction
+        roller_reaction += node.xforce_external * (pin_y - node_y)
+    if(roller_node.constraint=="roller_no_xdisp"):
+        roller_reaction = -roller_reaction/(pin_y-roller_y)
+        roller_node.AddReactionXForce(roller_reaction)
+    elif(roller_node.constraint=="roller_no_ydisp"):
+        roller_reaction = -roller_reaction/(roller_x - pin_x)
+        roller_node.AddReactionYForce(roller_reaction)
+             
+        # sum of forces in y direction
+        pin_reaction_x=0
+        pin_reaction_y=0
+        for node in nodes:
+            pin_reaction_x+=node.xforce_external
+            pin_reaction_y+=node.yforce_external
+        if(roller_node.constraint=="roller_no_xdisp"):
+            pin_reaction_x+=roller_reaction
+        elif(roller_node.constraint=="roller_no_ydisp"):
+            pin_reaction_y+=roller_reaction
+            
+        pin_node.AddReactionXForce(-pin_reaction_x)
+        pin_node.AddReactionYForce(-pin_reaction_y)
 
     # sum of forces in x direction
     
