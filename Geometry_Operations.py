@@ -91,7 +91,7 @@ def SineVectors(local_x_vec,other_vec):
     cross_prod = TwoDCrossProduct(local_x_vec, other_vec)
     norm_local_x = VectorTwoNorm(local_x_vec)
     norm_other = VectorTwoNorm(other_vec)
-    sine_theta = abs(cross_prod) / (norm_local_x * norm_other)
+    sine_theta = (cross_prod) / (norm_local_x * norm_other)
     return sine_theta
 
 # Cosine of angle from local x bar to the other bar
