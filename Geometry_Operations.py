@@ -96,12 +96,11 @@ def SineVectors(local_x_vec,other_vec):
 
 # Cosine of angle from local x bar to the other bar
 def CosineBars(local_x_bar,other_bar):
-    local_x_vec = BarNodeToVector(local_x_bar.init_node, local_x_bar)
-    other_vec = BarNodeToVector(other_bar.init_node, other_bar)
-    return CosineVectors(local_x_vec, other_vec)
+    #reference BarsToVectors and CosVectors 
+    vector_1, vector_2 = BarsToVectors(local_x_bar, other_bar)
+    return CosineVectors(vector_1, vector_2)
 
 # Sine of angle from local x bar to the other bar
 def SineBars(local_x_bar, other_bar):
-    local_x_vec = BarNodeToVector(local_x_bar.init_node, local_x_bar)
-    other_vec = BarNodeToVector(other_bar.init_node, other_bar)
-    return SineVectors(local_x_vec, other_vec)
+    vector_1, vector_2 = BarsToVectors(local_x_bar, other_bar)
+    return SineVectors(vector_1, vector_2)
